@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react"
+import { createBrowserRouter,RouterProvider  } from "react-router-dom"
 import Main from "./components/Main.jsx"
 import Quiz from "./components/Quiz.jsx"
 // import Question from "./components/Question.jsx"
@@ -52,7 +53,7 @@ export default function App() {
   }
 
   return (
-    <div>
+    <>
       {start  ?
         <Quiz 
           questionsData={ questionsArr }
@@ -62,6 +63,6 @@ export default function App() {
         :
         <Main startQuiz={setQuiz} />
       }
-    </div>
+    </>
   )
 }
