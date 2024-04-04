@@ -21,7 +21,7 @@ const catagories = [
     {name: "Vehicles", value: "28"},
     {name: "Entertainment: Comics", value: "29"},
     {name: "Science: Gadgets", value: "30"},
-    {name: "Entertainment: JapaneseAnime & Manga", value: "31"},
+    {name: "Entertainment: Japanese Anime & Manga", value: "31"},
     {name: "Entertainment: Cartoon & Animations", value: "32"}
 ]
 

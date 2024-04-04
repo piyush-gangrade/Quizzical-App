@@ -7,23 +7,19 @@ export default function Question({questionDetails, select, correctOptions, showA
         const newStyle = {
             backgroundColor: "",
             cursor: "not-allowed",
-            PointerEvents : "none"
+            PointerEvents : "none",
+            color: "#FFFFFF"
         }
         if(showAns){
-            if(correctOptions.includes(questionDetails.id)){
-                 {newStyle.backgroundColor = questionDetails.selectedAns === option? "#94D7A2" : "unset"}
-            }
-            else{
-                if(questionDetails.selectedAns === option){
-                     {newStyle.backgroundColor =  "#F8BCBC"}
+                if(questionDetails.correct_answer == option){
+                    {newStyle.backgroundColor =  "#1cb63c"}
                 }
-                else if(questionDetails.correct_answer == option){
-                     {newStyle.backgroundColor =  "#94D7A2"}
+                else if(questionDetails.selectedAns === option){
+                     {newStyle.backgroundColor =  "#ed4343"}
                 }
                 else{
-                     {newStyle.backgroundColor =  "unset"}
+                     {newStyle.backgroundColor =  "unset"; newStyle.color = "unset"}
                 }
-            }
             return newStyle
         }
         else{
@@ -32,7 +28,7 @@ export default function Question({questionDetails, select, correctOptions, showA
     }
 
     function warning() {
-        console.log("you will not change the selected answer")
+        console.error("you will not change the selected answer")
     }
 
     const buttonEl = questionDetails.options.map((option) => 
@@ -40,7 +36,7 @@ export default function Question({questionDetails, select, correctOptions, showA
             className="option" 
             style={changeStyle(option)} 
             key={option} 
-            onClick={showAns? warning() : (() => select(questionDetails.id,option))}
+            onClick={showAns? warning : (() => select(questionDetails.id,option))}
         >
             {decode(option)}
         </button>

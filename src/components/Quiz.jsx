@@ -1,6 +1,7 @@
 import {useState, useEffect} from "react"
-import { useActionData, Navigate } from "react-router-dom"
+import { useActionData, Navigate, NavLink } from "react-router-dom"
 import { nanoid } from "nanoid";
+import { Bars } from "react-loader-spinner";
 import Question from "./Question"
 
 
@@ -9,16 +10,13 @@ export default function Quiz(){
   const [questionsArr, setQuestionsArr] = useState([]);
   const [selectedAnswers, setSelectedAnswers] = useState([])
   const [showAnswer, setShowAnswer] = useState(false)
-
   
   const data = useActionData();
-  console.log(data);
-  // console.log(`https://opentdb.com/api.php?amount=5&type=multiple&category=${data.category}&difficulty=${data.difficulty}`)
-  if(!data){
+
+  if(!data ){
     return <Navigate to="/fields" />
   }
-  // return <div>return</div>
-  
+
   useEffect(()=>{
     if(data){
       const URL = `https://opentdb.com/api.php?amount=5&type=multiple&category=${data.category}&difficulty=${data.difficulty}`;
@@ -26,7 +24,8 @@ export default function Quiz(){
         const res = await fetch(URL);
         const data = await res.json();
         setLoading(false);
-        const results = data.results ;
+        const results = data.results || [];
+        if(results.length > 0){
           setQuestionsArr(results.map(result => (
             {
               ...result,
@@ -36,6 +35,7 @@ export default function Quiz(){
               selectedAns: ""
             }
           )));   
+        }
       }
       fetchData();
     }
@@ -66,11 +66,6 @@ export default function Quiz(){
     setShowAnswer(true)
   }
 
-  function playAgain() {
-    setShowAnswer(false)
-    setCorrectAnswers([])
-  }
-
   const questionEl = questionsArr.map(ques => (
     <Question
       key = {ques.id}
@@ -86,70 +81,30 @@ export default function Quiz(){
   return (
     <>
     {loading?
-      <h1>Loading...</h1>:
+      <div className="loader">
+        <Bars 
+          height="80"
+          width="80"
+          color="#4D5B9E"
+          ariaLabel="bars-loading"
+          wrapperStyle={{}}
+          wrapperClass=""
+          visible={true}
+        />
+      </div>
+      :
       <div className="questions--container">
         {questionEl}
         <div className="show-answer">
           {(showAnswer)? <p className="answer">Your score {selectedAnswers.length}/5 correct answers</p>:""}
-          <button className="btn" onClick={showAnswer? playAgain:checkAnswer}>{showAnswer? "Play Again":"Check-answer"}</button>
+          {
+            showAnswer?
+            <NavLink className="btn" to="/fields" >Play Again</NavLink>:
+            <button className="btn" onClick={checkAnswer}>Check-answer</button>
+          }
         </div>
       </div>
     }
     </>
   )
 }
-
-// export default function Quiz({ questionsData, selected ,reset}) {
-
-
-  // useEffect(()=>{
-  //   const checkAllSelected = questionsData.every(ques => ques.isSelected === true)
-  //   const correctOptions = [];
-  //   if (checkAllSelected) {
-  //     for (let question of questionsData) {
-  //       question.selectedAns === question.correct_answer ?
-  //         correctOptions.push(question.id) : ""
-  //     }
-  //   }
-  //   setCorrectAnswers(correctOptions)
-  // },[showAnswer])
-
-  // function selectedOption(id, ans){
-  //   setQuestionsArr(prevQuesArr => prevQuesArr.map(prevQues =>
-  //     (prevQues.id === id) ?
-  //       prevQues.selectedAns !== ans ? 
-  //         { ...prevQues, isSelected: true, selectedAns: ans } 
-  //         : { ...prevQues, isSelected: false, selectedAns: "" }
-  //     : prevQues
-  //     )
-  //   )
-  // }
-
-  // const questionEl = questionsData.map(ques => (
-  //   <Question
-  //     key={ques.id}
-  //     questionDetails = {ques}
-  //     select={selectedOption}
-  //     correctOptions = {correctAnswers}
-  //     showAns = {showAnswer}
-  //   />
-  // ))
-
-  // function checkAnswer() {
-  //   setShowAnswer(true)
-  // }
-
-  // function playAgain() {
-  //   setShowAnswer(false)
-  //   reset(true)
-  //   setCorrectAnswers([])
-  // }
-
-  // return (<div className="questions--container">
-  //   {questionEl}
-  //   <div className="show-answer">
-  //     {(showAnswer)? <p className="answer">Your score {correctAnswers.length}/5 correct answers</p>:""}
-  //     <button className="btn" onClick={showAnswer? playAgain:checkAnswer}>{showAnswer? "Play Again":"Check-answer"}</button>
-  //   </div>
-  // </div>)
-//
