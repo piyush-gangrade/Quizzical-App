@@ -164,7 +164,7 @@ body{
     margin: 0;
   }
   .question{
-    font-size: 1rem;
+    font-size: 1.2rem;
   }
   .options--container{
     display: flex;
@@ -172,7 +172,8 @@ body{
     gap: 10px;
   }
   .option{
-    font-size: 0.65rem;
+    font-size: 0.9rem;
+    padding: 0.5em;
   }
   .answer{
     font-size: 1rem;
