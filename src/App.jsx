@@ -3,14 +3,18 @@ import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider,  
 import Main from "./components/Main.jsx"
 import Quiz from "./components/Quiz.jsx"
 import Fields from "./components/Fields.jsx"
+import ErrorBoundary from "./components/ErrorBoundary.jsx"
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
-      <Route path="/" Component={Main} />
+      <Route path="/" Component={Main} 
+        errorElement={<ErrorBoundary />}
+      />
       <Route 
-        path="fields" 
+        path="/fields" 
         Component={Fields}
+        errorElement={<ErrorBoundary />}
       />
       <Route 
         path="/quiz"
@@ -22,6 +26,7 @@ const router = createBrowserRouter(
           }
           return sumbmission;
         }}
+        errorElement={<ErrorBoundary />}
         Component={Quiz}
       />
     </>

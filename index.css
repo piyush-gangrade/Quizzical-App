@@ -127,7 +127,11 @@ body{
   justify-content: center;
   align-items: center;
 }
-  
+
+.error{
+  text-align: center;
+}
+
 @media screen and (max-width: 1024px) {
   .questions--container{
     width: 75%;

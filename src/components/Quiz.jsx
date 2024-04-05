@@ -24,7 +24,7 @@ export default function Quiz(){
         const res = await fetch(URL);
         const data = await res.json();
         setLoading(false);
-        const results = data.results || [];
+        const results = data.results ;
         if(results.length > 0){
           setQuestionsArr(results.map(result => (
             {
@@ -104,7 +104,7 @@ export default function Quiz(){
           }
         </div>
       </div>
-    }
+     } 
     </>
   )
 }
