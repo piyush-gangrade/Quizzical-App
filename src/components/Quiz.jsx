@@ -71,7 +71,6 @@ export default function Quiz(){
       key = {ques.id}
       questionDetails = {ques}
       select = {selectedOption}
-      correctOptions = {selectedAnswers}
       showAns = {showAnswer}
     />
   ))

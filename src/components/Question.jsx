@@ -1,7 +1,7 @@
 import React from "react"
 import { decode } from "html-entities"
 
-export default function Question({questionDetails, select, correctOptions, showAns}) {
+export default function Question({questionDetails, select, showAns}) {
 
     function changeStyle(option) {
         const newStyle = {

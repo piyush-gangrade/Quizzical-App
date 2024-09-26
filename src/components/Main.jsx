@@ -1,7 +1,7 @@
 import React from "react"
 import { NavLink } from "react-router-dom"
 
-export default function Main(props) {
+export default function Main() {
     return (
         <main className="main">
             <h1 className="main--heading">Quizzical</h1>
